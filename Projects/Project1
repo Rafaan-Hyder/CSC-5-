@@ -1,0 +1,103 @@
+/* Author: Rafaan Hyder
+ * 
+ * Date created: 7/10/22
+ * 
+ * Purpose: Simplified Blackjack game
+ * 
+ */
+
+
+//System Libraries#
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
+#include <iomanip>
+#include <fstream>
+#include <string>
+#include <cmath>
+
+using namespace std;
+
+//User Libraries
+
+//Global Constants
+//Mathematical/Physics/conversions/Higher Dimensioned Arrays
+//function prototype
+//execution begins here
+
+int getCard(int);
+
+int main()
+{
+    //declare variables
+    srand(time(0));
+    int total, card1, card2, newTotal = 0;
+    int gStart, gEnd;
+    char choice, playAgain = 'y';
+
+     //map inputs to outputs -> The process
+    while (playAgain == 'y')
+    {
+        cout << "Welcome to Blackjack!\nYou are playing against yourself, if you want to win a bet you must get to 21"<<endl;
+       
+        cout<<"The betting return is X2"<<endl;
+        
+        cout<<"How much would you like to bet?"<<endl;
+        cin>>gStart;
+        
+        gEnd = gStart * 2;
+        card1 = rand() % 10 + 1;
+        card2 = rand() % 10 + 1;
+        total = card1 + card2;
+        cout << "Here are your first cards: " << card1 << ", " << card2 << endl;
+       
+        cout << "Your total is " << total << "." << endl;
+
+        cout << "Would you like to draw another card? (y/n)\n";
+        cin >> choice;
+
+         //display the results
+         while (choice == 'y')
+         {
+             total = getCard(total);
+
+             if (total > 21)
+             {
+                 cout << "Bust!" << endl;
+                 choice = 'n';
+             }
+
+             else if (total < 21)
+             {
+                cout << "Would you like to draw another card? (y/n)\n";
+                cin >> choice;
+             }
+             else
+             {
+                 cout << "Congratulations, you won!\n";
+                 cout<<"You've earned $"<<gEnd<<" \n";
+                 choice = 'n';
+             }
+         }
+
+        cout << "Would you like to play again? (y/n)\n";
+        cin >> playAgain;
+    }
+
+     //exit stage right
+    return 0;
+}
+
+
+int getCard(int total)
+{
+     //declare variables
+    int addCard, newTotal;
+    addCard = rand() % 10 + 1;
+    newTotal = total + addCard;
+    cout << "You got a new card with a value of " << addCard << "." << endl;
+    
+    cout << "Your total is now " << newTotal << "." << endl;
+    
+    return newTotal;
+}
